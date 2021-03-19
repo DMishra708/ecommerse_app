@@ -7,7 +7,24 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+require("jquery")
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+$(document).ready(function(){
+
+  function openNav() {
+  document.getElementById("mySidenav").style.width = "70%";
+  
+  document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+  }
+  
+  function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.body.style.backgroundColor = "rgba(0,0,0,0)";
+  }
+  
+  
+  });
