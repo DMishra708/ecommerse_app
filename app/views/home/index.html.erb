@@ -11,6 +11,11 @@
         <a class="nav-link" href="#">Contact</a>
       </div>
     </div>
+    <% if current_user %>
+      <%= link_to 'Logout', destroy_user_session_path, method: :delete %> 
+    <% else %>
+      <%= link_to 'Log In', new_user_session_path %> 
+    <% end %>
     <div class="random-number"></div>
   </div>
 </nav>
@@ -49,7 +54,8 @@ li a:hover {
     </li>
   <% end %>
 </ul>
-
+<%= render partial: 'product', collection: @product, as: :product %>
+<%= render partial: 'user', collection: @user, as: :product %>
 
 </body>
 
