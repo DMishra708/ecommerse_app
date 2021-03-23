@@ -1,3 +1,5 @@
+<%= link_to 'Create Product', new_admin_product_path %>
+
  <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -8,12 +10,18 @@
 	    <div class="col-md-12">
     <table class="table table-responsive table-hover table-bordered">
     <thead>
-        <th> Product Name</th>
+        <th> Name</th>
+        <th> Description</th>
+        <th> Category</th>
         <th>Price </th>
     </thead>
     <% @products.each do |product| %>
-      <td><%= product.name %></td>
-      <td><%= product.price %></td>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.product_description %></td>
+        <td><%= product.category.category_name %></td>
+        <td><%= product.price %></td>
+      </tr>
     <% end %>
   </table>
 	    </div>

@@ -1,21 +1,22 @@
 class Admin::ProductsController < AdminController
   def index
-    @products = Product.all
+    @products = Product.includes(:category).all
     end
     
     def new
-    @products = Product.new
+      @categories = Category.all
+      @product = Product.new
     end
     
     def create
-    params[:products][:user_id] = current_user.id
-    @products = Product.new(products_params)
-    if @product.after_save
-    render Product
-    else
-    flash[:error] ='Can not save'
-    render 'new'
-    end
+      @product = Product.new(product_params)
+      if @product.save
+        redirect_to admin_products_path
+      else
+        @categories = Category.all
+        flash[:error] ='Can not save'
+        render 'new'
+      end
     end
     
     def edit
@@ -24,7 +25,7 @@ class Admin::ProductsController < AdminController
     
     def update
     @products = Products.find(params[:id])
-    @products.update_attributes!(products_params)
+    @products.update_attributes!(product_params)
     flash[:notice] = "#{@products.name} has been succesfully updated."
     redirect_to root_path
     end
@@ -36,12 +37,8 @@ class Admin::ProductsController < AdminController
     redirect_to root_path
     end
     
-    def show
-    @products = Product.find(params[:id])
-    end
-    
     private
-    def products_params
-    params.require(:product).permit(:product_id, :product_name)
+    def product_params
+      params.require(:product).permit(:name, :price, :product_description, :category_id)
     end
 end
