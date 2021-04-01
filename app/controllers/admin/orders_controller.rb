@@ -7,4 +7,8 @@ class Admin::OrderController < AdminController
     @order = Order.find(params[:id])
   end
 
+  def new
+    @order = Order.new 
+  end
+  
 end

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Best Shoping</a>
+    <%=link_to 'Best Shopping',admin_products_path %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -10,7 +10,14 @@
         <a class="nav-link" href="#">About</a>
         <a class="nav-link" href="#">Contact</a>
       </div>
+
     </div>
+      </p>
+        <button type="button" class="btn btn-default btn-sm">
+          <span class="glyphicon glyphicon-shopping-cart"></span> my cart
+        </button>
+      </p>
+
     <% if current_user %>
       <%= link_to 'Logout', destroy_user_session_path, method: :delete %> 
     <% else %>
@@ -19,7 +26,6 @@
     <div class="random-number"></div>
   </div>
 </nav>
-
 
 <head>
 <style>
@@ -46,7 +52,6 @@ li a:hover {
 </style>
 </head>
 <body>
-
 <ul>
   <% @categories.each do |category| %>
     <li>
@@ -56,8 +61,4 @@ li a:hover {
 </ul>
 <%= render partial: 'product', collection: @products, as: :product %>
 <%= render partial: 'user', collection: @user, as: :product %>
-
 </body>
-
-
-        
