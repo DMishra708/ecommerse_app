@@ -1,10 +1,15 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_cart_order, only: [:cart, :add_item_to_cart, :checkout]
+
   def index
-    @orders = Order.all
+    @orders = current_user.orders
   end
 
-  def show
-    @order = Order.find(params[:id])
+  def cart
+  end
+
+  def checkout
   end
 
   def new
@@ -12,8 +17,8 @@ class OrdersController < ApplicationController
   end
 
   def add_item_to_cart
-    byebug
-    @order = current_user.orders.find_or_create_by(status: 'cart')
+    @order.line_items.create(product_id: params[:product_id], quantity: 1)
+    redirect_back(fallback_location: root_path)
   end
 
   def create
@@ -37,5 +42,14 @@ class OrdersController < ApplicationController
   def total_price
     self.quantity * self.product.price
   end
+
+  private
+
+  def set_cart_order
+    @order = current_user.orders.find_or_create_by(status: 'cart')
+  end
    
+  def order_params
+    @order = Order.params[:id]
+  end
 end
