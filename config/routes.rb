@@ -14,7 +14,12 @@ Rails.application.routes.draw do
       get 'checkout'
     end
     member do
-      get 'checkout'
+      post 'place_order'
     end
+  end
+  resources :orders do
+    collection do
+      post 'confirm'
+    end  
   end
 end

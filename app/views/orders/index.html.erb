@@ -17,9 +17,10 @@
         <td><%= order.id %></td>
         <td><%= order.name %></td>
         <td><%= order.total %></td>
-      </tr>
+      </tr>  
     <% end %>
   </table>
+  <%= button_to "Cancle Order",orders_path(@order),method: :get,class:"btn btn-primary btn-block"%>
 	    </div>
 	</div>
 </div> 

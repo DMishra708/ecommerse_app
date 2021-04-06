@@ -4,7 +4,7 @@ class Order < ApplicationRecord
 
   def total
     total = 0
-    order_items.each do |item|
+    line_items.each do |item|
       total += item.quantity * item.product.price
     end
     total

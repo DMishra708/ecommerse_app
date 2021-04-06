@@ -1,7 +1,8 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_cart_order, only: [:cart, :add_item_to_cart, :checkout]
-
+  before_action :set_order, only: [:place_order]
+ 
   def index
     @orders = current_user.orders
   end
@@ -33,6 +34,15 @@ class OrdersController < ApplicationController
 
   end
 
+  def place_order
+    @order.address = params[:order][:address]
+    @order.phone = params[:order][:phone]
+    @order.name = params[:order][:name]
+    @order.status = 'placed'
+    @order.save
+    redirect_to orders_path
+  end
+
   def update
     @order = Order.find(params[:id])
     @order.update_attributes!(order_params)
@@ -42,14 +52,22 @@ class OrdersController < ApplicationController
   def total_price
     self.quantity * self.product.price
   end
+  
+  def destroy
+    @order = Order.find(params[:id])
+    @order.destroy
 
+    redirect_to root_path
+  end
+
+  
   private
 
   def set_cart_order
     @order = current_user.orders.find_or_create_by(status: 'cart')
   end
    
-  def order_params
-    @order = Order.params[:id]
+  def set_order
+    @order = Order.find(params[:id])
   end
 end

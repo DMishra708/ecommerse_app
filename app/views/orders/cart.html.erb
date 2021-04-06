@@ -2,11 +2,6 @@
   <%= item.quantity %> 
   <%= item.product.name %>
   <%= item.product.price %> 
-<% end %>
- </p>
-        <button type="button" class="btn btn-default btn-sm">
-          <%= link_to 'Place Order',new_order_path %>
-        </button>
-      </p>    
-      
-      <%= button_to "go to checkout",checkout_orders_path(@order.id),method: :get,class:"btn btn-primary btn-block"%>
+<% end %>     
+<%= button_to "go to checkout",checkout_orders_path(@order),method: :get,class:"btn btn-primary btn-block"%>
+    
