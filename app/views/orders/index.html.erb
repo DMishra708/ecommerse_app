@@ -10,17 +10,19 @@
     <thead>
         <th> Id</th>
         <th> Customer Name</th>
-        <th> Total</th>
+        <th> Product</th>
     </thead>
     <% @orders.each do |order| %>
       <tr>
         <td><%= order.id %></td>
         <td><%= order.name %></td>
         <td><%= order.total %></td>
+        
       </tr>  
+      <td style="width:30px"> <%= button_to "Oder Place",order_path(order),method: :get,class:"btn btn-primary btn-block"%> </td>
     <% end %>
   </table>
-  <%= button_to "Cancle Order",orders_path(@order),method: :get,class:"btn btn-primary btn-block"%>
+  
 	    </div>
 	</div>
 </div> 

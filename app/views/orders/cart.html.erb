@@ -2,6 +2,7 @@
   <%= item.quantity %> 
   <%= item.product.name %>
   <%= item.product.price %> 
+  <%= link_to 'Remove', remove_item_from_cart_orders_path(id: item.id) %>
 <% end %>     
 <%= button_to "go to checkout",checkout_orders_path(@order),method: :get,class:"btn btn-primary btn-block"%>
     

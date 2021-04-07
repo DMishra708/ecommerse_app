@@ -29,7 +29,7 @@ class Admin::ProductsController < AdminController
     flash[:notice] = "#{@products.name} has been succesfully updated."
     redirect_to root_path
     end
-    
+
     def destroy
     @products = Product.find(params[:id])
     @products.destroy

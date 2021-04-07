@@ -1,0 +1,6 @@
+<h2> address </h2>
+<p><%= @order.name %></p>
+<p><%= @order.address %></p>
+<p><%= @order.total %></p>
+<%= link_to "Change Or add Address", class: 'button' %>
+<p> <%= link_to "Continue",payment_orders_path,method: :post, class: 'button' %> </p>

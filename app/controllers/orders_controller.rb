@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_cart_order, only: [:cart, :add_item_to_cart, :checkout]
+  before_action :set_cart_order, only: [:cart, :add_item_to_cart, :checkout, :remove_item_from_cart]
   before_action :set_order, only: [:place_order]
  
   def index
@@ -17,8 +17,20 @@ class OrdersController < ApplicationController
     @order = Order.new
   end
 
+  def show
+    @order = Order.find(params[:id])
+  end
+
+  def payment
+  end
+
   def add_item_to_cart
-    @order.line_items.create(product_id: params[:product_id], quantity: 1)
+    order_item = @order.line_items.find_by(product_id: params[:product_id])
+    if order_item
+      order_item.update(quantity: order_item.quantity + 1)
+    else
+      @order.line_items.create(product_id: params[:product_id], quantity: 1)
+    end
     redirect_back(fallback_location: root_path)
   end
 
@@ -52,14 +64,15 @@ class OrdersController < ApplicationController
   def total_price
     self.quantity * self.product.price
   end
-  
-  def destroy
-    @order = Order.find(params[:id])
-    @order.destroy
 
-    redirect_to root_path
+  def remove_item_from_cart
+    order_item = @order.line_items.includes(:product).find(params[:id])
+    if order_item
+      order_item.destroy
+      flash[:success] = "#{order_item.product.name} is removed from cart."
+    end
+    redirect_back(fallback_location: root_path)
   end
-
   
   private
 

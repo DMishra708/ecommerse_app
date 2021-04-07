@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       post 'add_item_to_cart' 
       get 'cart'
       get 'checkout'
+      get 'remove_item_from_cart'
     end
     member do
       post 'place_order'
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
   resources :orders do
     collection do
       post 'confirm'
+      post 'payment'
     end  
   end
 end
