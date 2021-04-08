@@ -6,4 +6,9 @@ class AdminController < ApplicationController
   def is_admin?
     redirect_to root_path unless current_user&.admin? 
   end
+  
+  def show
+    @order = Order.all
+  end
+
 end
